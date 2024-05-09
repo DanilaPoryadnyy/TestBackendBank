@@ -1,4 +1,4 @@
-package com.example.testbackendbank.controller;
+package com.example.testbackendbank.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
+@NoArgsConstructor
+public class RegisterRequest {
     private String email;
     private String password;
 }

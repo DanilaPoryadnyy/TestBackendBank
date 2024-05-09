@@ -1,18 +1,14 @@
 package com.example.testbackendbank.service;
 
-import com.example.testbackendbank.config.JwtService;
-import com.example.testbackendbank.controller.AuthenticationRequest;
-import com.example.testbackendbank.controller.AuthenticationResponse;
-import com.example.testbackendbank.controller.RegisterRequest;
-import com.example.testbackendbank.entity.Role;
+import com.example.testbackendbank.dto.auth.AuthenticationRequest;
+import com.example.testbackendbank.dto.auth.AuthenticationResponse;
+import com.example.testbackendbank.dto.auth.RegisterRequest;
 import com.example.testbackendbank.entity.Userinstance;
 import com.example.testbackendbank.repository.RoleRepository;
 import com.example.testbackendbank.repository.UserinstanceRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

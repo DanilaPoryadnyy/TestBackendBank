@@ -1,14 +1,12 @@
-package com.example.testbackendbank.config;
+package com.example.testbackendbank.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

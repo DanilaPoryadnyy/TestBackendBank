@@ -1,7 +1,9 @@
 package com.example.testbackendbank.controller;
 
+import com.example.testbackendbank.dto.auth.AuthenticationRequest;
+import com.example.testbackendbank.dto.auth.AuthenticationResponse;
+import com.example.testbackendbank.dto.auth.RegisterRequest;
 import com.example.testbackendbank.service.AuthenticationService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.example.testbackendbank.controller;
+package com.example.testbackendbank.dto.auth;
 
 import lombok.*;
 

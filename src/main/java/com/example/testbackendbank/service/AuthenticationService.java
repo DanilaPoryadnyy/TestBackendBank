@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class AuthenticationService {
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setIdrole(roleRepository.getRoleByNamerole("USER"));
+        user.setRegistrationdate(LocalDate.now());
         userinstanceRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();

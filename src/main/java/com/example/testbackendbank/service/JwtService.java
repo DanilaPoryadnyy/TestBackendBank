@@ -46,7 +46,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails userDetails) throws UnsupportedEncodingException {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && isTokenExpired(token, userDetails);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token, userDetails);
     }
 
     private Date extractExpiration(String token) throws UnsupportedEncodingException {

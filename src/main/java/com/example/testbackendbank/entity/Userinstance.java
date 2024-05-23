@@ -22,7 +22,7 @@ public class Userinstance implements UserDetails {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "idrole", nullable = false)
     private Role idrole;
 

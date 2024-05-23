@@ -19,14 +19,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Отключаем CSRF для простоты, но не в production!
+                .csrf().disable() // Отключаем CSRF для простоты, но не в prod
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/auth/**").permitAll() // Разрешить доступ ко всем запросам на /auth/**
-                        .requestMatchers("/demo-controller").hasRole("USER") // Доступ только для пользователей с ролью USER
-                        .anyRequest().authenticated() // Все остальные запросы требуют аутентификации
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/demo-controller").hasAnyAuthority("USER")
+                        .anyRequest().authenticated()
                 )
-                .authenticationProvider(authenticationProvider) // Настраиваем провайдер аутентификации
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Добавляем JWT фильтр
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

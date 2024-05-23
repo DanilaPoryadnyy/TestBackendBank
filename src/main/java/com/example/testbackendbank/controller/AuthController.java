@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthenticationService authenticationService;

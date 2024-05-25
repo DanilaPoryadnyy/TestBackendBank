@@ -1,4 +1,4 @@
-package com.example.testbackendbank.dao.daoInterface;
+package com.example.testbackendbank.dao.daoInterface.auth;
 
 import com.example.testbackendbank.entity.UserInstance;
 import jakarta.servlet.http.HttpServletRequest;

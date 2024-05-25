@@ -3,6 +3,7 @@ package com.example.testbackendbank.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDVV5IkIxBMzr7OEHXEHd37w=="; //todo NOT HARDCODE
+    @Value("${jwt.secret}")
+    private String secret;
 
     public String extractUsername(String token) throws UnsupportedEncodingException {
         return extractClaim(token, Claims::getSubject);
@@ -35,7 +37,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
 
     }
@@ -60,7 +62,7 @@ public class JwtService {
     private Claims extractAllClaims(String token) throws UnsupportedEncodingException {
         return Jwts
                 .parserBuilder()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(secret)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

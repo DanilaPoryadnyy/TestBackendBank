@@ -1,15 +1,15 @@
-package com.example.testbackendbank.dao.impl;
+package com.example.testbackendbank.dao.daoImpl.auth;
 
-import com.example.testbackendbank.dao.daoInterface.UserDao;
+import com.example.testbackendbank.dao.daoInterface.auth.UserDao;
 import com.example.testbackendbank.entity.UserInstance;
 import com.example.testbackendbank.repository.UserInstanceRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
     private final UserInstanceRepository userInstanceRepository;
 

@@ -17,7 +17,7 @@ public class UserData {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private Userinstance user;
+    private UserInstance user;
 
     @Column(name = "snils", length = 14)
     private String snils;

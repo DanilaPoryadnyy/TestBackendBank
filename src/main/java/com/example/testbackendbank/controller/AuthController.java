@@ -1,8 +1,8 @@
 package com.example.testbackendbank.controller;
 
-import com.example.testbackendbank.dto.auth.AuthenticationRequest;
-import com.example.testbackendbank.dto.auth.AuthenticationResponse;
-import com.example.testbackendbank.dto.auth.RegisterRequest;
+import com.example.testbackendbank.dto.request.auth.AuthenticationRequest;
+import com.example.testbackendbank.dto.response.auth.AuthenticationResponse;
+import com.example.testbackendbank.dto.request.auth.UserRequest;
 import com.example.testbackendbank.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request) throws UnsupportedEncodingException {
+            @RequestBody UserRequest request) throws UnsupportedEncodingException {
         return  ResponseEntity.ok(authenticationService.register(request));
     }
     @PostMapping("/authenticate")

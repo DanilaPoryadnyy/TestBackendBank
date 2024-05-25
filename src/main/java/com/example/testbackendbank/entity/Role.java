@@ -22,6 +22,6 @@ public class Role {
     private String namerole;
 
     @OneToMany(mappedBy = "idrole")
-    private Set<Userinstance> userinstances = new LinkedHashSet<>();
+    private Set<UserInstance> userInstances = new LinkedHashSet<>();
 
 }

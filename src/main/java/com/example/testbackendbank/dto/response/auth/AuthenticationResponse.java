@@ -1,4 +1,4 @@
-package com.example.testbackendbank.dto.auth;
+package com.example.testbackendbank.dto.response.auth;
 
 import lombok.*;
 

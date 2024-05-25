@@ -1,4 +1,4 @@
-package com.example.testbackendbank.dto.user;
+package com.example.testbackendbank.dto.request.user;
 
 import lombok.Value;
 

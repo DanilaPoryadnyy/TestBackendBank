@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "userinstance")
-public class Userinstance implements UserDetails {
+public class UserInstance implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userinstance_id_gen")
     @SequenceGenerator(name = "userinstance_id_gen", sequenceName = "userinstance_id_seq", allocationSize = 1)

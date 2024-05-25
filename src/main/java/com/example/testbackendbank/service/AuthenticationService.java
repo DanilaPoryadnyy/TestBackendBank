@@ -1,11 +1,11 @@
 package com.example.testbackendbank.service;
 
-import com.example.testbackendbank.dto.auth.AuthenticationRequest;
-import com.example.testbackendbank.dto.auth.AuthenticationResponse;
-import com.example.testbackendbank.dto.auth.RegisterRequest;
-import com.example.testbackendbank.entity.Userinstance;
+import com.example.testbackendbank.dao.impl.UserDaoImpl;
+import com.example.testbackendbank.dto.request.auth.AuthenticationRequest;
+import com.example.testbackendbank.dto.response.auth.AuthenticationResponse;
+import com.example.testbackendbank.dto.request.auth.UserRequest;
+import com.example.testbackendbank.entity.UserInstance;
 import com.example.testbackendbank.repository.RoleRepository;
-import com.example.testbackendbank.repository.UserinstanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,19 +18,19 @@ import java.time.LocalDate;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserinstanceRepository userinstanceRepository;
+    private final UserDaoImpl userDaoImpl;
     private final RoleRepository roleRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationResponse register(RegisterRequest registerRequest) throws UnsupportedEncodingException {
-        var user = new Userinstance();
-        user.setEmail(registerRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+    public AuthenticationResponse register(UserRequest userRequest) throws UnsupportedEncodingException {
+        var user = new UserInstance();
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         user.setIdrole(roleRepository.getRoleByNamerole("USER"));
         user.setRegistrationdate(LocalDate.now());
-        userinstanceRepository.save(user);
+        userDaoImpl.create(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
@@ -42,7 +42,7 @@ public class AuthenticationService {
                         authenticationRequest.getPassword()
                 )
         );
-        var user = userinstanceRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();//todo exception
+        var user = userDaoImpl.getByEmail(authenticationRequest.getEmail());
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }

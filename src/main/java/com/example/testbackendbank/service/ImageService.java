@@ -2,9 +2,9 @@ package com.example.testbackendbank.service;
 
 import com.example.testbackendbank.dao.daoImpl.auth.UserDaoImpl;
 import com.example.testbackendbank.dao.daoImpl.auth.UserDataDaoImpl;
+import com.example.testbackendbank.dao.daoImpl.photo.ImageDaoImpl;
 import com.example.testbackendbank.entity.Image;
 import com.example.testbackendbank.entity.UserData;
-import com.example.testbackendbank.repository.ImageRepository;
 import com.example.testbackendbank.utils.ImageUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -22,7 +22,7 @@ import java.util.zip.DataFormatException;
 @RequiredArgsConstructor
 public class ImageService {
 
-    private final ImageRepository imageRepository;
+    private final ImageDaoImpl imageDaoImpl;
     private final UserDataDaoImpl userDataDaoImpl;
     private final UserDaoImpl userDaoImpl;
     private final JwtService jwtService;
@@ -43,11 +43,11 @@ public class ImageService {
             var imageToDelete = userData.getIdImage();
             userData.setIdImage(null);
             userDataDaoImpl.update(request,userData);
-            imageRepository.delete(imageToDelete);
-            imageRepository.save(imageToSave);
+            imageDaoImpl.delete(imageToDelete);
+            imageDaoImpl.create(imageToSave);
         }
         else {
-            imageRepository.save(imageToSave);
+            imageDaoImpl.create(imageToSave);
         }
 
         userData.setIdImage(imageToSave);

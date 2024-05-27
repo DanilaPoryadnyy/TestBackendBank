@@ -4,6 +4,7 @@ import com.example.testbackendbank.dto.request.auth.AuthenticationRequest;
 import com.example.testbackendbank.dto.response.auth.AuthenticationResponse;
 import com.example.testbackendbank.dto.request.auth.UserRequest;
 import com.example.testbackendbank.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +20,16 @@ import java.io.UnsupportedEncodingException;
 public class AuthController {
 
     private final AuthenticationService authenticationService;
+
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody UserRequest request) throws UnsupportedEncodingException {
-        return  ResponseEntity.ok(authenticationService.register(request));
+    public ResponseEntity<?> register(@Valid @RequestBody UserRequest request) throws UnsupportedEncodingException {
+        ResponseEntity<?> responseEntity = authenticationService.register(request);
+        return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
     }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> auth(
-            @RequestBody AuthenticationRequest request
+            @Valid @RequestBody AuthenticationRequest request
     ) throws UnsupportedEncodingException {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }

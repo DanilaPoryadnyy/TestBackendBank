@@ -8,7 +8,10 @@ import com.example.testbackendbank.dto.response.auth.AuthenticationResponse;
 import com.example.testbackendbank.dto.request.auth.UserRequest;
 import com.example.testbackendbank.entity.UserData;
 import com.example.testbackendbank.entity.UserInstance;
+import com.example.testbackendbank.exception.AuthError;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,31 +30,37 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationResponse register(UserRequest userRequest) throws UnsupportedEncodingException {
-        var user = new UserInstance();
-        user.setEmail(userRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        user.setIdrole(roleDaoImpl.getRoleByNamerole("USER"));
-        user.setRegistrationdate(LocalDate.now());
-        userDaoImpl.create(user);
+    public ResponseEntity<?> register(UserRequest userRequest) throws UnsupportedEncodingException {
+        if(userDaoImpl.checkUserByEmail(userRequest.getEmail()))
+        {
+            return ResponseEntity.badRequest().body(new AuthError(HttpStatus.BAD_REQUEST.value(), "User exists with the email address"));
+        }
+        else {
+            var user = new UserInstance();
+            user.setEmail(userRequest.getEmail());
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            user.setIdrole(roleDaoImpl.getRoleByNamerole("USER"));
+            user.setRegistrationdate(LocalDate.now());
+            userDaoImpl.create(user);
 
-        var userData = new UserData();
+            var userData = new UserData();
 
-        userData.setUser(user);
-        userDataDaoImpl.create(userData);
+            userData.setUser(user);
+            userDataDaoImpl.create(userData);
 
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+            var jwtToken = jwtService.generateToken(user);
+            return ResponseEntity.ok(AuthenticationResponse.builder().token(jwtToken).build());
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws UnsupportedEncodingException {
+        UserInstance user = userDaoImpl.getByEmail(authenticationRequest.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getEmail(),
                         authenticationRequest.getPassword()
                 )
         );
-        var user = userDaoImpl.getByEmail(authenticationRequest.getEmail());
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }

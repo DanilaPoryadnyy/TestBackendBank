@@ -3,6 +3,7 @@ package com.example.testbackendbank.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class JwtService {
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws UnsupportedEncodingException {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
+    }
+
+    public String extractEmail(String token) throws UnsupportedEncodingException {
+        return extractClaim(token, Claims::getSubject);
     }
 
     public String generateToken(
@@ -66,5 +71,13 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public String resolveToken(HttpServletRequest req){
+        String bearerToken = req.getHeader("Authorization");
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
     }
 }

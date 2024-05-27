@@ -2,9 +2,13 @@ package com.example.testbackendbank.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "userdata")
 public class UserData {
@@ -16,8 +20,12 @@ public class UserData {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_instance", nullable = false)
     private UserInstance user;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "image_id")
+    private Image idImage;
 
     @Column(name = "snils", length = 14)
     private String snils;

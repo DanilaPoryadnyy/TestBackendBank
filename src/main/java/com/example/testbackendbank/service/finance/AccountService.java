@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountDao accountDao;
+    private final AccountStatusService accountStatusService;
     private final JwtService jwtService;
     private final UserDao userDao;
     private final ModelMapper modelMapper;
@@ -44,6 +45,7 @@ public class AccountService {
 
         Account account = modelMapper.map(accountDto, Account.class);
         account.setUserInstance(userInstance);
+        account.setAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
 
         return accountDao.save(account);
     }

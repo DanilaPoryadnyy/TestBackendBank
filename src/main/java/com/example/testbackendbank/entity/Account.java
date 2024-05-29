@@ -1,6 +1,7 @@
 package com.example.testbackendbank.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Account {
     @Column(name = "balance")
     private Long balance;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_status", nullable = false)
     private AccountStatus accountStatus;

@@ -67,6 +67,7 @@ public class AccountService {
         UserInstance userInstance = findUserInstanceByRequest(request);
         Account account = accountDao.getAccountById(id);
         modelMapper.map(accountDto, account);
+        account.setAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
 
         if(account.getUserInstance() == userInstance) {
             return accountDao.save(account);

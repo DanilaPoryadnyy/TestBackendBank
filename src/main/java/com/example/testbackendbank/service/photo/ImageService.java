@@ -1,10 +1,11 @@
-package com.example.testbackendbank.service;
+package com.example.testbackendbank.service.photo;
 
 import com.example.testbackendbank.dao.daoImpl.auth.UserDaoImpl;
 import com.example.testbackendbank.dao.daoImpl.auth.UserDataDaoImpl;
 import com.example.testbackendbank.dao.daoImpl.photo.ImageDaoImpl;
 import com.example.testbackendbank.entity.Image;
 import com.example.testbackendbank.entity.UserData;
+import com.example.testbackendbank.service.auth.JwtService;
 import com.example.testbackendbank.utils.ImageUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

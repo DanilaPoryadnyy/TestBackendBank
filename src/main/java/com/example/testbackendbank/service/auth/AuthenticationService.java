@@ -1,4 +1,4 @@
-package com.example.testbackendbank.service;
+package com.example.testbackendbank.service.auth;
 
 import com.example.testbackendbank.dao.daoImpl.auth.RoleDaoImpl;
 import com.example.testbackendbank.dao.daoImpl.auth.UserDaoImpl;

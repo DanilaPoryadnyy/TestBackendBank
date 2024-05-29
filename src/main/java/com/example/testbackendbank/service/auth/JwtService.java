@@ -1,4 +1,4 @@
-package com.example.testbackendbank.service;
+package com.example.testbackendbank.service.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -35,7 +35,7 @@ public class JwtService {
 
     public String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails) throws UnsupportedEncodingException {
+            UserDetails userDetails) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -64,7 +64,7 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    private Claims extractAllClaims(String token) throws UnsupportedEncodingException {
+    private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(secret)

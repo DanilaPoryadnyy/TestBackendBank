@@ -1,20 +1,20 @@
 package com.example.testbackendbank.dto.request.user;
 
-import lombok.Value;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Value
+@Data
 public class UserDataDto implements Serializable {
-    String snils;
-    String inn;
-    String passportSeries;
-    String passportNumber;
-    String phone;
-    String firstName;
-    String lastName;
-    String middleName;
-    LocalDate birthdate;
-    String address;
+    private String snils;
+    private String inn;
+    private String passportSeries;
+    private String passportNumber;
+    private String phone;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private LocalDate birthdate;
+    private String address;
 }

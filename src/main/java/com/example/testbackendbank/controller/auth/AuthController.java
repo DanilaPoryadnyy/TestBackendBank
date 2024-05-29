@@ -1,9 +1,9 @@
-package com.example.testbackendbank.controller;
+package com.example.testbackendbank.controller.auth;
 
 import com.example.testbackendbank.dto.request.auth.AuthenticationRequest;
 import com.example.testbackendbank.dto.response.auth.AuthenticationResponse;
 import com.example.testbackendbank.dto.request.auth.UserRequest;
-import com.example.testbackendbank.service.AuthenticationService;
+import com.example.testbackendbank.service.auth.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

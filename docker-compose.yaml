@@ -1,0 +1,27 @@
+services:
+  db:
+    container_name: postgresql_container
+    image: postgres
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=bank_db
+      - POSTGRES_PASSWORD=Danek0000
+      - POSTGRES_USER=steepfire
+    volumes:
+      - /home/steepfire/db_bank:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build: .
+    container_name: bankback_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db:5432/bank_db
+      - spring.datasource.username=steepfire
+      - spring.datasource.password=Danek0000
+      - spring.jpa.hibernate.ddl-auto=update

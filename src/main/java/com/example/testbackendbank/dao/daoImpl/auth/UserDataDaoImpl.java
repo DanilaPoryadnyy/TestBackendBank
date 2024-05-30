@@ -38,4 +38,8 @@ public class UserDataDaoImpl implements UserDataDao {
     public UserData delete(HttpServletRequest request) {
         return null;
     }
+
+    public UserData getByPhone(String phone){
+        return userDataRepository.findByPhone(phone);
+    }
 }

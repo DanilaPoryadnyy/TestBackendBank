@@ -33,6 +33,6 @@ public class Transaction {
     private Long amount;
 
     @Column(name = "created_at")
-    private OffsetDateTime createdAt;
+    private LocalDate createdAt;
 
 }

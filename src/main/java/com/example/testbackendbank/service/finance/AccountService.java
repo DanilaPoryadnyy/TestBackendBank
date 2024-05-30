@@ -31,7 +31,13 @@ public class AccountService {
         UserInstance userInstance = userDao.getByEmail(email);
         return accountDao.getAccountsByUserInstance(userInstance);
     }
-    private Account findAccountByRequest(HttpServletRequest request) throws UnsupportedEncodingException {
+
+    List<Account> findAccountsById(Long id) throws UnsupportedEncodingException {
+        UserInstance userInstance = userDao.getById(id);
+        return accountDao.getAccountsByUserInstance(userInstance);
+    }
+
+    public Account findAccountByRequest(HttpServletRequest request) throws UnsupportedEncodingException {
         String email = jwtService.extractEmail(jwtService.resolveToken(request));
         UserInstance userInstance = userDao.getByEmail(email);
         return accountDao.getAccountByUserInstance(userInstance);
@@ -58,6 +64,10 @@ public class AccountService {
         return findAccountsByRequest(request);
     };
 
+    public Account getByUserInstance(UserInstance userInstance) {
+        return accountDao.getAccountByUserInstance(userInstance);
+    };
+
     public Account getById(Long id, HttpServletRequest request) throws UnsupportedEncodingException {
         UserInstance userInstance = findUserInstanceByRequest(request);
         Account account = accountDao.getAccountById(id);
@@ -81,6 +91,11 @@ public class AccountService {
         else {
 
         }
+    }
+
+    public void updateAccountForServices(Account account)
+    {
+        accountDao.save(account);
     }
 
     public ResponseEntity<?> deleteAccount(HttpServletRequest request, Long id) throws UnsupportedEncodingException {

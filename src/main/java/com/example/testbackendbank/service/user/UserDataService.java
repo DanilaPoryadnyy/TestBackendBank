@@ -1,5 +1,6 @@
 package com.example.testbackendbank.service.user;
 
+import com.example.testbackendbank.dao.daoImpl.auth.UserDataDaoImpl;
 import com.example.testbackendbank.dao.daoInterface.auth.UserDao;
 import com.example.testbackendbank.dao.daoInterface.auth.UserDataDao;
 import com.example.testbackendbank.dto.request.user.UserDataDto;
@@ -9,6 +10,7 @@ import com.example.testbackendbank.service.auth.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -17,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 public class UserDataService {
 
-    private final UserDataDao userDataDao;
+    private final UserDataDaoImpl userDataDao;
     private final UserDao userDao;
     private final JwtService jwtService;
 
@@ -41,6 +43,10 @@ public class UserDataService {
         modelMapper.map(userDataDto, userData);
 
         userDataDao.save(userData);
+    }
+
+    public UserData getUserDataByPhoneNumber(String phoneNumber){
+        return userDataDao.getByPhone(phoneNumber);
     }
 
 }

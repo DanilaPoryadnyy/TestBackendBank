@@ -7,6 +7,7 @@ public interface UserDao {
     UserInstance create(UserInstance userInstance);
     UserInstance getByEmail(HttpServletRequest httpRequest);
     UserInstance getByEmail(String email);
+    UserInstance getById(Long id);
     UserInstance update(HttpServletRequest request, UserInstance userInstance);
     UserInstance delete(HttpServletRequest request);
 }

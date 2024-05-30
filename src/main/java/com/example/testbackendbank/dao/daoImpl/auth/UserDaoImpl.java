@@ -34,6 +34,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public UserInstance getById(Long id) {
+        return userInstanceRepository.findById(id);
+    }
+
+    @Override
     public UserInstance update(HttpServletRequest request, UserInstance userInstance) {
         return null;
     }

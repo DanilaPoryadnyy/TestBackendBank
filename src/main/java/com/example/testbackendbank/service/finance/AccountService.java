@@ -45,7 +45,7 @@ public class AccountService {
 
         Account account = modelMapper.map(accountDto, Account.class);
         account.setUserInstance(userInstance);
-        account.setAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
+        account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
 
         return accountDao.save(account);
     }
@@ -67,7 +67,7 @@ public class AccountService {
         UserInstance userInstance = findUserInstanceByRequest(request);
         Account account = accountDao.getAccountById(id);
         modelMapper.map(accountDto, account);
-        account.setAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
+        account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
 
         if(account.getUserInstance() == userInstance) {
             return accountDao.save(account);

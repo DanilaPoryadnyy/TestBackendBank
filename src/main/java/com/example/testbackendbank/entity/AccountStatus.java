@@ -1,9 +1,13 @@
 package com.example.testbackendbank.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,5 +23,9 @@ public class AccountStatus {
     @NotNull
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
     private String status;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "idAccountStatus")
+    private Set<Account> accounts = new LinkedHashSet<>();
 
 }

@@ -17,6 +17,9 @@ public class AccountDto implements Serializable {
     private Long accountType;
 
     @NotNull
+    private Integer branch;
+
+    @NotNull
     @NotBlank(message = "currency should not blank")
     private String currency;
 }

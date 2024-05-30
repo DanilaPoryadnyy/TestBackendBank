@@ -29,14 +29,8 @@ public class Transaction {
     @JoinColumn(name = "to_account_id")
     private Account toAccount;
 
-    @Column(name = "date_issued")
-    private LocalDate dateIssued;
-
     @Column(name = "amount")
     private Long amount;
-
-    @Column(name = "transaction_medium", length = Integer.MAX_VALUE)
-    private String transactionMedium;
 
     @Column(name = "created_at")
     private OffsetDateTime createdAt;

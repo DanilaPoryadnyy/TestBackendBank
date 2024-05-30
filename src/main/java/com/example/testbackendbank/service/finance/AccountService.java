@@ -21,6 +21,7 @@ public class AccountService {
     private final AccountDao accountDao;
     private final AccountStatusService accountStatusService;
     private final AccountTypeService accountTypeService;
+    private final BranchService branchService;
     private final JwtService jwtService;
     private final UserDao userDao;
     private final ModelMapper modelMapper;
@@ -48,6 +49,7 @@ public class AccountService {
         account.setUserInstance(userInstance);
         account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
         account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
+        account.setBranch(branchService.getBranchById(accountDto.getBranch()));
 
         return accountDao.save(account);
     }
@@ -71,6 +73,7 @@ public class AccountService {
         modelMapper.map(accountDto, account);
         account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
         account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
+        account.setBranch(branchService.getBranchById(accountDto.getBranch()));
 
         if(account.getUserInstance() == userInstance) {
             accountDao.save(account);

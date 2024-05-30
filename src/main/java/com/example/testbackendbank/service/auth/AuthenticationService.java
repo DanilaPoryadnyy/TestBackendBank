@@ -46,7 +46,7 @@ public class AuthenticationService {
             var userData = new UserData();
 
             userData.setUser(user);
-            userDataDaoImpl.create(userData);
+            userDataDaoImpl.save(userData);
 
             var jwtToken = jwtService.generateToken(user);
             return ResponseEntity.ok(AuthenticationResponse.builder().token(jwtToken).build());

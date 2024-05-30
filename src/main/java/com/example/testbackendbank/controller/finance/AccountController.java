@@ -35,12 +35,13 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateProduct(HttpServletRequest request, @Valid @RequestBody AccountDto accountDto,@PathVariable Long id) throws UnsupportedEncodingException {
-        return new ResponseEntity<>(accountService.updateAccount(request, accountDto,id), HttpStatus.NO_CONTENT);
+    public ResponseEntity<Account> updateAccount(HttpServletRequest request, @Valid @RequestBody AccountDto accountDto, @PathVariable Long id) throws UnsupportedEncodingException {
+        accountService.updateAccount(request, accountDto, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeProduct(HttpServletRequest request, @PathVariable Long id) throws UnsupportedEncodingException {
+    public ResponseEntity<String> removeAccount(HttpServletRequest request, @PathVariable Long id) throws UnsupportedEncodingException {
         accountService.deleteAccount(request, id);
         return ResponseEntity.noContent().build();
     }

@@ -1,6 +1,7 @@
 package com.example.testbackendbank.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +20,12 @@ public class UserData {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_instance", nullable = false)
     private UserInstance user;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "image_id")
     private Image idImage;

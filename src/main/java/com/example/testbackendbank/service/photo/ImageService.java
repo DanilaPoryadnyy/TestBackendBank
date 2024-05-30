@@ -43,7 +43,7 @@ public class ImageService {
         {
             var imageToDelete = userData.getIdImage();
             userData.setIdImage(null);
-            userDataDaoImpl.update(request,userData);
+            userDataDaoImpl.save(userData);
             imageDaoImpl.delete(imageToDelete);
             imageDaoImpl.create(imageToSave);
         }
@@ -52,7 +52,7 @@ public class ImageService {
         }
 
         userData.setIdImage(imageToSave);
-        userDataDaoImpl.update(request,userData);
+        userDataDaoImpl.save(userData);
 
         return "file uploaded successfully : " + imageFile.getOriginalFilename();
     }

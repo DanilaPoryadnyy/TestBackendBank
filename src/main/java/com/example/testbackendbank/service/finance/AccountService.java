@@ -65,7 +65,7 @@ public class AccountService {
         return null;
     }
 
-    public Account updateAccount(HttpServletRequest request, AccountDto accountDto, Long id) throws UnsupportedEncodingException {
+    public void updateAccount(HttpServletRequest request, AccountDto accountDto, Long id) throws UnsupportedEncodingException {
         UserInstance userInstance = findUserInstanceByRequest(request);
         Account account = accountDao.getAccountById(id);
         modelMapper.map(accountDto, account);
@@ -73,10 +73,10 @@ public class AccountService {
         account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
 
         if(account.getUserInstance() == userInstance) {
-            return accountDao.save(account);
+            accountDao.save(account);
         }
         else {
-            return null;
+
         }
     }
 

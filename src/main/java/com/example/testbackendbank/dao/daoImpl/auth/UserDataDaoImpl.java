@@ -15,7 +15,7 @@ public class UserDataDaoImpl implements UserDataDao {
     private final UserDataRepository userDataRepository;
 
     @Override
-    public UserData create(UserData userData) {
+    public UserData save(UserData userData) {
         return userDataRepository.save(userData);
     }
 
@@ -25,8 +25,13 @@ public class UserDataDaoImpl implements UserDataDao {
     }
 
     @Override
+    public UserData findById(Integer id) {
+        return userDataRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public UserData update(HttpServletRequest request, UserData userData) {
-        return userDataRepository.save(userData);
+        return null;
     }
 
     @Override

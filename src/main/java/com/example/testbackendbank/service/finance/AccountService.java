@@ -20,6 +20,7 @@ import java.util.List;
 public class AccountService {
     private final AccountDao accountDao;
     private final AccountStatusService accountStatusService;
+    private final AccountTypeService accountTypeService;
     private final JwtService jwtService;
     private final UserDao userDao;
     private final ModelMapper modelMapper;
@@ -46,6 +47,7 @@ public class AccountService {
         Account account = modelMapper.map(accountDto, Account.class);
         account.setUserInstance(userInstance);
         account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
+        account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
 
         return accountDao.save(account);
     }
@@ -68,6 +70,7 @@ public class AccountService {
         Account account = accountDao.getAccountById(id);
         modelMapper.map(accountDto, account);
         account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
+        account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
 
         if(account.getUserInstance() == userInstance) {
             return accountDao.save(account);

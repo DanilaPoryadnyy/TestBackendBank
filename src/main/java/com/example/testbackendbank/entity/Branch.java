@@ -18,6 +18,9 @@ public class Branch {
     @Column(name = "branch_name", length = Integer.MAX_VALUE)
     private String branchName;
 
+    @Column(name = "bank_code", length = Integer.MAX_VALUE)
+    private Integer bankCode;
+
     @Column(name = "branch_location", length = Integer.MAX_VALUE)
     private String branchLocation;
 }

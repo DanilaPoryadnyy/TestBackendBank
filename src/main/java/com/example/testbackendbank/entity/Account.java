@@ -32,8 +32,10 @@ public class Account {
     @JoinColumn(name = "idAccountStatus", nullable = false)
     private AccountStatus idAccountStatus;
 
-    @Column(name = "account_type", length = Integer.MAX_VALUE)
-    private String accountType;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_type_id", nullable = false)
+    private AccountType idAccountType;
 
     @Column(name = "currency", length = Integer.MAX_VALUE)
     private String currency;

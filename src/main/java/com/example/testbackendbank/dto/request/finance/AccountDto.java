@@ -14,8 +14,7 @@ public class AccountDto implements Serializable {
     private Integer accountStatus;
 
     @NotNull
-    @NotBlank(message = "accountType should not blank")
-    private String accountType;
+    private Long accountType;
 
     @NotNull
     @NotBlank(message = "currency should not blank")

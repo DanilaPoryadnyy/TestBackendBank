@@ -1,6 +1,6 @@
 package com.example.testbackendbank.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class Account {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_instance", nullable = false)
     private UserInstance userInstance;

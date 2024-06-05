@@ -1,5 +1,6 @@
 package com.example.testbackendbank.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class AccountType {
     @Column(name = "type_name", unique = true, nullable = false)
     private String typeName;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "idAccountType")
     private Set<Account> accountsType = new LinkedHashSet<>();
 }

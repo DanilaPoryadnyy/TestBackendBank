@@ -20,7 +20,6 @@ public class UserData {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_instance", nullable = false)
     private UserInstance user;

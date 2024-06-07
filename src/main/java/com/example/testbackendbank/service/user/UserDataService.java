@@ -44,6 +44,14 @@ public class UserDataService {
 
         userDataDao.save(userData);
     }
+    public void updateUserDataByEmployee(UserDataDto userDataDto,Integer id) throws UnsupportedEncodingException {
+        UserData userData = userDataDao.findById(id);
+
+        modelMapper.map(userDataDto, userData);
+
+        userDataDao.save(userData);
+    }
+
 
     public UserData getUserDataByPhoneNumber(String phoneNumber){
         return userDataDao.getByPhone(phoneNumber);

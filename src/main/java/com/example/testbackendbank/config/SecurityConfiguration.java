@@ -22,7 +22,9 @@ public class SecurityConfiguration {
                 .csrf().disable() // Отключаем CSRF для простоты, но не в prod
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/demo-controller").hasAnyAuthority("USER")
+                        .requestMatchers("/account/employee/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/account/employee").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/userData/").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

@@ -1,9 +1,13 @@
 package com.example.testbackendbank.service.finance;
 
+import com.example.testbackendbank.dao.daoImpl.auth.UserDaoImpl;
+import com.example.testbackendbank.dao.daoImpl.auth.UserDataDaoImpl;
 import com.example.testbackendbank.dao.daoInterface.auth.UserDao;
 import com.example.testbackendbank.dao.daoInterface.finance.AccountDao;
 import com.example.testbackendbank.dto.request.finance.AccountDto;
+import com.example.testbackendbank.dto.request.user.UserInfoDto;
 import com.example.testbackendbank.entity.Account;
+import com.example.testbackendbank.entity.UserData;
 import com.example.testbackendbank.entity.UserInstance;
 import com.example.testbackendbank.service.auth.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +29,8 @@ public class AccountService {
     private final JwtService jwtService;
     private final UserDao userDao;
     private final ModelMapper modelMapper;
+    private final UserDaoImpl userDaoImpl;
+    private final UserDataDaoImpl userDataDaoImpl;
 
     private List<Account> findAccountsByRequest(HttpServletRequest request) throws UnsupportedEncodingException {
         String email = jwtService.extractEmail(jwtService.resolveToken(request));
@@ -64,6 +70,12 @@ public class AccountService {
         return findAccountsByRequest(request);
     };
 
+    public List<Account> getByUserInfo(UserInfoDto userInfoDto) throws UnsupportedEncodingException {
+        UserData userData = userDataDaoImpl.findByPhoneAndFirstNameAndLastNameAndMiddleNameAndBirthdate(userInfoDto);
+        UserInstance userInstance = userData.getUser();
+        return accountDao.getAccountsByUserInstance(userInstance);
+    }
+
     public Account getByUserInstance(UserInstance userInstance) {
         return accountDao.getAccountByUserInstance(userInstance);
     };
@@ -91,6 +103,15 @@ public class AccountService {
         else {
 
         }
+    }
+    public void updateAccountByEmployee(AccountDto accountDto, Long id)
+            throws UnsupportedEncodingException {
+        Account account = accountDao.getAccountById(id);
+        modelMapper.map(accountDto, account);
+        account.setIdAccountStatus(accountStatusService.getAccountStatus(accountDto.getAccountStatus()));
+        account.setIdAccountType(accountTypeService.getAccountTypeById(accountDto.getAccountType()));
+        account.setBranch(branchService.getBranchById(accountDto.getBranch()));
+        accountDao.save(account);
     }
 
     public void updateAccountForServices(Account account)

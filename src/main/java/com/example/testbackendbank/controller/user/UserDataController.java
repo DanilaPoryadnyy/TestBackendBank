@@ -35,4 +35,10 @@ public class UserDataController {
         userDataService.updateUserData(request, userDataDto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserData> updateUserDataByEmployee(@Valid @RequestBody UserDataDto userDataDto, @PathVariable Integer id) throws UnsupportedEncodingException {
+        userDataService.updateUserDataByEmployee(userDataDto,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

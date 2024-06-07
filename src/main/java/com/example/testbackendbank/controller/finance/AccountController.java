@@ -1,6 +1,9 @@
 package com.example.testbackendbank.controller.finance;
 
+import com.example.testbackendbank.dao.daoImpl.auth.UserDataDaoImpl;
 import com.example.testbackendbank.dto.request.finance.AccountDto;
+import com.example.testbackendbank.dto.request.user.UserDataDto;
+import com.example.testbackendbank.dto.request.user.UserInfoDto;
 import com.example.testbackendbank.entity.Account;
 import com.example.testbackendbank.service.finance.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import java.util.List;
 @RequestMapping("/account")
 public class AccountController {
     private final AccountService accountService;
+    private final UserDataDaoImpl userDataDaoImpl;
 
     @PostMapping
     public ResponseEntity<Account> createAccount(@Valid @RequestBody AccountDto accountDto, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -29,6 +33,13 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getByUserInstance(request));
     }
 
+    @GetMapping("/employee")
+    public ResponseEntity<List<Account>> getAccountByUserInfo(@RequestBody UserInfoDto userInfoDto)
+            throws UnsupportedEncodingException
+    {
+        return ResponseEntity.ok(accountService.getByUserInfo(userInfoDto));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id, HttpServletRequest request) throws UnsupportedEncodingException {
         return ResponseEntity.ok(accountService.getById(id, request));
@@ -37,6 +48,12 @@ public class AccountController {
     @PutMapping("/{id}")
     public ResponseEntity<Account> updateAccount(HttpServletRequest request, @Valid @RequestBody AccountDto accountDto, @PathVariable Long id) throws UnsupportedEncodingException {
         accountService.updateAccount(request, accountDto, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/employee/{id}")
+    public ResponseEntity<Account> updateAccount(@Valid @RequestBody AccountDto accountDto, @PathVariable Long id) throws UnsupportedEncodingException {
+        accountService.updateAccountByEmployee(accountDto, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
